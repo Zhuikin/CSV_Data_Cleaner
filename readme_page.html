@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CleanerCSV Readme</title>
+</head>
+<body>
+<h3>Welcome to the CleanerCSV datafile cleaner</h3>
+The app will load a specified CSV file and perform various cleaning tasks
+as specified in the selected JSON specifications file.
+Profile reports of the source and the output data are created for comparison.
+
+<h3>Start</h3> by clicking the "Load specs" button above to select a
+specification file. Once the spec and source files have been successfully
+loaded clic the "Clean data" button to run the task specified in the
+spec file.
+
+<h3>Please be patient</h3>
+Note, that some operations, profiling in particular but also some
+column conversions might take a significant amount of time on a large
+datasample.
+
+<h3>Command line launch</h3>
+The app can be launched from the command line using
+<br><br>
+<i>python.exe app &lt;specs_filename.json&gt;</i>
+<br><br>
+The program will proceed to load the specified data,
+perform cleaning opeating and save the data as specified in the specs file
+before terminating.
+
+<h3>Spec files</h3>
+The specs are stored in JSON format.<br>
+The app folder always has an example <i>default_specs.json</i> file.
+This file will be rewritten if deleted and loaded is no valid specs file
+is provided.
+
+<h3>Spec file options</h3>
+<b>Note</b> - All options except
+<i><b>input_file, output_file, delimiter_in, delmiter_out</b></i> are optional
+and assumed false or empty if not specified.<br>
+<i><b>input_file, output_file : path/fileanme.csv</b></i> - The source and target
+CSV data files.<br>
+<i><b>delimiter_in, delmiter_out : character</b></i> - Assumed "," if omitted. - Data
+separators for source and target scv files respectively.<br>
+<i><b>input_file_rofile, output_file_profile : path/filename.html</b></i> - HTML
+Filenames for profiles for sourc eand output data.
+<i><b>summary_file : path/filename</b></i> - Filename to save a copy of the
+cleaning log, for example keeping it with the data or profile files.<br>
+<b>Note</b> - regardles of this option an addtional full logfile will alway
+be written as <i><b>data_cleaner.log</b></i> within the application folder.<br>
+<i><b>drop_repeat_headers : true|false </b></i> - Will remove possible dupplicates
+of the header line.<br>
+<i><b>drom_dupplicates : true|false</b></i> - Will remove dupplicate data rows from
+the dataframe.<br>
+<i><b>drop_na : true|false</b></i> - Will remove data rows containing NaN and NaT
+(not a number and not a time) from the data.<br>
+<i><b>clean_types : true|false</b></i> - Will convert data rows to numerical types or
+specified formats.<br>
+<b>Note</b> - This option requires some or all of the below options to
+specify columns and data types for conversion.<br>
+<i><b>str_col, float_col, int_col, numeric_col : [list of column names]</b></i> -
+column labels to be converted to the specified types.<br>
+<b>Note</b> - Explicit numeric conversions might fail, if the data is
+unsuitable. Running the generic numeric conversion with <i><b>drop_na : true</b></i>
+mitigates this risk.<br>
+<i><b>datetime_col, datetime_format [lists]</b></i> - Columns to be converted as
+date and time. Requires a datetime format string (specifying the input data
+format)for each column.
+<i><b>drop_col</b></i> - Columns to be dropped form the dataframe.
+</body>
+</html>
