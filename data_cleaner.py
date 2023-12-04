@@ -30,7 +30,7 @@ DEFAULT_CFG = {
     "datetime_col": ["Order Date"],  # done
     "datetime_format": ["%m/%d/%y %H:%M"],  # done
     "drop_col": [],  # done
-    "quantile_ouliers_col": []
+    "quantile_ouliers_col": []  # done ?
 }
 
 

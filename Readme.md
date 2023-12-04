@@ -11,6 +11,9 @@ Launch app.py <specs_file_name.JSON> to process the given specs file
 without loading the GUI.
 
 ### Required packages:
-pandas
-ydata_profiling
-PyQt6 for GUI
+* pandas
+* ydata_profiling
+* PyQt6 for GUI
+
+
+https://github.com/Zhuikin/CSV_Data_Cleaner
