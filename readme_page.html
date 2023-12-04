@@ -64,9 +64,11 @@ column labels to be converted to the specified types.<br>
 <b>Note</b> - Explicit numeric conversions might fail, if the data is
 unsuitable. Running the generic numeric conversion with <i><b>drop_na : true</b></i>
 mitigates this risk.<br>
-<i><b>datetime_col, datetime_format [lists]</b></i> - Columns to be converted as
+<i><b>datetime_col, datetime_format: [lists]</b></i> - Columns to be converted as
 date and time. Requires a datetime format string (specifying the input data
 format)for each column.
-<i><b>drop_col</b></i> - Columns to be dropped form the dataframe.
+<i><b>drop_col: [list]</b></i> - Columns to be dropped form the dataframe.<br>
+<i><b>quantile_ouliers_col: [list]</b></i> - Columns to be cleaned based on
+the Inter Qunatile Range formula.
 </body>
 </html>

@@ -1,0 +1,33 @@
+{
+    "input_file": "data/my_data.csv",
+    "output_file": "data/my_data_clean1.csv",
+    "delimiter_in": ",",
+    "delimiter_out": ",",
+    "input_file_profile": "profiles/input_file.html",
+    "output_file_profile": "profiles/output_file.html",
+    "summary_file": "",
+    "drop_repeat_headers": true,
+    "drop_duplicates": true,
+    "drop_na": true,
+    "clean_types": true,
+    "export_output_file": true,
+    "str_col": [
+        "Product",
+        "Purchase Address"
+    ],
+    "float_col": [],
+    "int_col": [],
+    "numeric_col": [
+        "Order ID",
+        "Quantity Ordered",
+        "Price Each"
+    ],
+    "datetime_col": [
+        "Order Date"
+    ],
+    "datetime_format": [
+        "%m/%d/%y %H:%M"
+    ],
+    "drop_col": [],
+    "quantile_ouliers_col": []
+}

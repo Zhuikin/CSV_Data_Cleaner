@@ -335,7 +335,6 @@ class CleanerCSV:
         self.df_changed = True
         self.df.dropna(axis="index", how="all", inplace=True)
 
-
     def clean_quantile_outliers(self):
         """ Clears outliers using IQR
         """
@@ -344,15 +343,23 @@ class CleanerCSV:
             return
 
         for col in q_o_cols:
-            Q1 = self.df[col].quantile(0.25)
-            Q3 = self.df[col].quantile(0.75)
-            IQR = Q1 - Q3
-            min_valid = Q1 - 1.5 * IQR
-            max_valid = Q3 + 1.5 * IQR
+            if not pd.api.types.is_numeric_dtype(self.df[col]):
+                self.logger.warning(
+                    f"column {col} was not converted to numeric. "
+                    f"- skipping IQR cleaning "
+                )
+                continue
+
+            self.logger.info(f"running IQR cleaner on column {col}.")
+            q1 = self.df[col].quantile(0.25)
+            q3 = self.df[col].quantile(0.75)
+            iqr = q1 - q3
+            min_valid = q1 - 1.5 * iqr
+            max_valid = q3 + 1.5 * iqr
 
             valid_rows = (
-                (self.df[col] >= min_valid) &
-                (self.df[col] <= max_valid)
+                    (self.df[col] >= min_valid) &
+                    (self.df[col] <= max_valid)
             )
 
             self.df = self.df[valid_rows]
