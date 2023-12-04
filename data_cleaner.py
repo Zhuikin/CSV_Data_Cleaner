@@ -29,16 +29,9 @@ DEFAULT_CFG = {
     # done
     "datetime_col": ["Order Date"],  # done
     "datetime_format": ["%m/%d/%y %H:%M"],  # done
-    "drop_col": []  # done
+    "drop_col": [],  # done
+    "quantile_ouliers_col": []
 }
-
-# Q1 = df[column].quantile(0.25)
-# Q3 = df[column].quantile(0.75)
-#
-# IQR = Q1 - Q3
-#
-# min_valid = Q1 - 1.5 * IQR
-# max_valid = Q3 + 1.5 * IQR
 
 
 class CleanerCSV:
@@ -238,6 +231,7 @@ class CleanerCSV:
         self.run_astype_conversion("str")
         self.clean_drop_na()
         self.drop_columns()
+        self.clean_quantile_outliers()
 
         return self.df
 
@@ -340,6 +334,28 @@ class CleanerCSV:
         self.logger.info("dropping NaN and NaT rows")
         self.df_changed = True
         self.df.dropna(axis="index", how="all", inplace=True)
+
+
+    def clean_quantile_outliers(self):
+        """ Clears outliers using IQR
+        """
+        q_o_cols = self.cfg.get("quantile_ouliers_col")
+        if not q_o_cols:
+            return
+
+        for col in q_o_cols:
+            Q1 = self.df[col].quantile(0.25)
+            Q3 = self.df[col].quantile(0.75)
+            IQR = Q1 - Q3
+            min_valid = Q1 - 1.5 * IQR
+            max_valid = Q3 + 1.5 * IQR
+
+            valid_rows = (
+                (self.df[col] >= min_valid) &
+                (self.df[col] <= max_valid)
+            )
+
+            self.df = self.df[valid_rows]
 
     def drop_columns(self):
         """ Drop specified column(s) from the dataframe.

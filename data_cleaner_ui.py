@@ -208,7 +208,6 @@ class CleanerCSVWindow(QMainWindow):
         # full_file_name, _ = QFileDialog.getOpenFileName()
         if not full_file_name:
             return
-        print("Launcihng attach cleaner")
         self.attach_cleaner(full_file_name)
 
     def toggle_buttons_enabled(self, set_to: bool):
