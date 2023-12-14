@@ -205,11 +205,22 @@ class CleanerCSV:
         has been run.
         """
         if not self.df_changed:
-            file = self.local_path / self.cfg.get("input_file_profile")
-            self.logger.info(f"profiling source data to {file!r}")
+            file = self.cfg.get("input_file_profile")
+            if file:
+                file = self.local_path / file
+                self.logger.info(f"profiling source data to {file!r}")
+            else:
+                self.logger.warning(f"no file selected for input profile")
+                return file
         else:
-            file = self.local_path / self.cfg.get("output_file_profile")
-            self.logger.info(f"cleaned data - profiling to {file!r}")
+            file = self.cfg.get("output_file_profile")
+            if file:
+                file = self.local_path / file
+                self.logger.info(f"cleaned data - profiling to {file!r}")
+            else:
+                self.logger.warning(f"no file selected for output profile")
+                return file
+
         file.parent.mkdir(parents=True, exist_ok=True)
         profile = ProfileReport(self.df)
         profile.to_file(output_file=file)
@@ -296,6 +307,11 @@ class CleanerCSV:
             except ValueError as e:
                 self.logger.error(
                     f"converting column {col} to {type_str!r} failed - {e}"
+                )
+            except KeyError as e:
+                self.logger.warning(
+                    f"column {col} (to {type_str!r}) not in the dataframe "
+                    f"- {e}"
                 )
 
     def clean_datetime_columns(self):
